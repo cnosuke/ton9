@@ -8,4 +8,12 @@ Ton9::Application.routes.draw do
       resources :items, :only => [:create]
     end #end resources :documents
   end #end resources :users
+
+  devise_for :users, :controllers => {
+    :sessions => "users/sessions",
+    :passwords => "users/passwords",
+    :registrations => "users/registrations"
+  }
+
+  root :to => "home#index"
 end
