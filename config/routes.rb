@@ -1,4 +1,5 @@
 Ton9::Application.routes.draw do
+=begin
   resources :users do
     resources :documents do
       resources :items
@@ -9,4 +10,5 @@ Ton9::Application.routes.draw do
       end
     end
   end
+=end
 end
