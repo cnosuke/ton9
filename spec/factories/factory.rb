@@ -1,5 +1,6 @@
 # coding: utf-8
 FactoryGirl.define do
+=begin
   factory :user do
     name "user"
     icon nil
@@ -25,4 +26,6 @@ FactoryGirl.define do
     binder
     user
   end
+
+=end
 end
