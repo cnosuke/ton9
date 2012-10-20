@@ -36,3 +36,7 @@ Thumbs.db
 auto-save-list
 tramp
 .\#*
+
+##### Netbeans #####
+/nbproject/private/
+/nbproject/*
