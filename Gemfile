@@ -24,13 +24,16 @@ end
 gem 'jquery-rails'
 gem "devise", "~> 2.1.2"
 gem "rails3_acts_as_paranoid", "~> 0.2.4"
-gem "factory_girl_rails", "~> 4.1.0"
 gem "pry-rails", "~> 0.2.2"
 gem "capybara", "~> 1.1.2"
 gem "hirb-unicode", "~> 0.0.5"
 
-group :test do
+group :developmant, :test do
   gem "rspec-rails", "~> 2.11.4"
+end
+
+group :test do
+  gem 'factory_girl_rails', :require => false
 end
 
 # To use ActiveModel has_secure_password
