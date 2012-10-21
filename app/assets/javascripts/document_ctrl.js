@@ -19,7 +19,7 @@ function DocumentCtrl($http, $scope, $routeParams) {
     $http.get('documents/' + $routeParams.document_id)
       .success(function(data) {
         if(data.result == 1) {
-          $scope.document = data.data.document; 
+          $scope.document = data.data; 
         }
         else {
           errorHandling(data.message);
@@ -30,4 +30,19 @@ function DocumentCtrl($http, $scope, $routeParams) {
       });
   };
 
+  $scope.additem = function() {
+    $http.post('documents/' + $routeParams.document_id + '/items', {content: this.item.body})
+      .success(function(data) {
+        if(data.result == 1) {
+          $scope.document.items.unshift(data.data);
+          $scope.item.body = "";
+        }
+        else {
+          errorHandling(data.message);
+        }
+      })
+      .error(function() {
+        errorHandling(data.message);
+      });
+  };
 }
