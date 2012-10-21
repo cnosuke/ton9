@@ -1,6 +1,6 @@
 <div class="row-fluid">
   <div class="span12">
-    <div class="span3" ng-include src="'<%= asset_path "sidebar.html" %>'"></div>
+    <div class="span3" ng-controller="SidebarCtrl" ng-include src="'<%= asset_path "sidebar.html" %>'" ng-init="init();"></div>
     <div class="span9">
       <%= bootstrap_flash %>
       <div ng-view></div>
