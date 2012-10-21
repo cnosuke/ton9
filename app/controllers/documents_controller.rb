@@ -36,7 +36,7 @@ class DocumentsController < ApplicationController
   def show
     @document = Document.where(:id => params[:id]).first
     if @document
-      @items = @document.items
+      @items = @document.items.reverse
       respond_to do |format|
         format.json {  render :json => { :result => 1, :data => { :document => @document, :items => @items} }.to_json }
       end #end respond_to

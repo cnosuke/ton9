@@ -9,11 +9,11 @@ class BindersController < ApplicationController
     
     if @binder.save
       respond_to do |format|
-        format.json {   render :json => {  :result => 0, :data => @binder }.to_json }
+        format.json {   render :json => {  :result => 1, :data => @binder }.to_json }
       end #end respond_to
     else
       respond_to do |format|
-        format.json {   render :json => {  :result => 1, :message => 'Binder save faild.' }.to_json }
+        format.json {   render :json => {  :result => 0, :message => 'Binder save faild.' }.to_json }
       end #end respond_to
     end
 
@@ -28,11 +28,11 @@ class BindersController < ApplicationController
 
     if @binder.save
       respond_to do |format|
-        format.json {   render :json => {  :result => 0, :data => @binder }.to_json }
+        format.json {   render :json => {  :result => 1, :data => @binder }.to_json }
       end #end respond_to
     else
       respond_to do |format|
-        format.json {   render :json => {  :result => 1, :message => 'Binder save faild.' }.to_json }
+        format.json {   render :json => {  :result => 0, :message => 'Binder save faild.' }.to_json }
       end #end respond_to
     end
     
@@ -45,11 +45,11 @@ class BindersController < ApplicationController
 
     if @binders
       respond_to do |format|
-        format.json { render :json => {  :result => 0, :data => @binders }.to_json(:include => [:documents]) }
+        format.json { render :json => {  :result => 1, :data => @binders }.to_json(:include => [:documents]) }
       end #end respond_to
     else
       respond_to do |format|
-        format.json { render :json => {  :result => 1, :data => "Binder not found." }.to_json }
+        format.json { render :json => {  :result => 0, :data => "Binder not found." }.to_json }
       end #end respond_to      
     end
   end
