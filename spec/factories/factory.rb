@@ -1,8 +1,15 @@
 # coding: utf-8
+require 'factory_girl'
+
 FactoryGirl.define do
   factory :user do
     name "user"
-    icon nil
+    sequence(:email) {|n| "a#{n}@example.com"}
+    password "hogehoge"
+  end
+
+  factory :binder do
+    name "binder"
   end
 
   factory :document do
@@ -13,12 +20,8 @@ FactoryGirl.define do
 
   factory :item do
     content "content"
-    parent_document FactoryGirl.build(:document)
-    parent_item     FactoryGirl.build(:item)
-  end
-
-  factory :binder do
-    name "binder"
+    parent_document_id nil
+    parent_item_id     nil
   end
 
   factory :holder do

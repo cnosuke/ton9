@@ -30,6 +30,16 @@ gem "hirb-unicode", "~> 0.0.5"
 
 group :developmant, :test do
   gem "rspec-rails", "~> 2.11.4"
+  gem 'database_cleaner'
+
+  #sporkを使う場合
+  gem "spork", "~> 0.9.2"
+  gem 'rb-fsevent'
+  gem 'guard-spork'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  gem 'guard-livereload'
+  gem 'growl'
 end
 
 group :test do
