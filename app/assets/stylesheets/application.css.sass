@@ -21,16 +21,6 @@ html, body
   overflow: auto
   background-color: #fff
 
-.navbar-fixed-top
-  margin: 0
-  position: fixed
-  top: 0
-  left: 0
-  width: 100%
-  .navbar-inner
-    margin: 0
-    padding: 0
-
 .content
   padding: 0
   margin: 0
@@ -40,18 +30,35 @@ html, body
   min-height: 100%
   display: block
   overflow: hidden
+  .navbar-fixed-top
+    margin: 0
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    .navbar-inner
+      margin: 0
+      padding: 0
+
+  .navbar-shadow
+    margin: 0
+    position: fixed
+    height: 40px
+    top: 0
+    left: -5%
+    width: 110%
+    -moz-box-shadow: 0px 2px 5px -3px #000000
+    -webkit-box-shadow: 0px 2px 5px -3px #000000
+    box-shadow: 0px 2px 5px -3px #000000
 
   .sidebar-nav
-    width: 150px
-    background: #45484d
-    background: -moz-linear-gradient(-20deg, #333333 10%, #222222 60%)
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(10%,#45484d), color-stop(60%,#222222))
-    background: -webkit-linear-gradient(-20deg, #45484d 10%,#222222 60%)
-    background: -o-linear-gradient(-20deg, #45484d 10%,#222222 60%)
-    background: -ms-linear-gradient(-20deg, #45484d 10%,#222222 60%)
-    background: linear-gradient(20deg, #45484d 10%,#222222 60%)
     padding-bottom: 100%
     margin-bottom: -100%
+    width: 150px
+    background: url(sidebar.jpg)
+    -moz-box-shadow: 2px 0px 5px -3px #000000
+    -webkit-box-shadow: 2px 0px 5px -3px #000000
+    box-shadow: 2px 0px 5px -3px #000000
     .nav
       padding: 40px 15px
 
@@ -61,6 +68,18 @@ html, body
     left: 160px
     display: block
     width: auto
+
+  .footer-shadow
+    margin: 0
+    position: absolute
+    bottom: 0
+    left: -5%
+    width: 110%
+    height: 30px
+    z-index: 0
+    -moz-box-shadow: 0px -2px 5px -3px #000000
+    -webkit-box-shadow: 0px -2px 5px -3px #000000
+    box-shadow: 0px -2px 5px -3px #000000
 
   .modal-footer
     padding: 0
@@ -78,4 +97,19 @@ html, body
     .center
       margin: 0 10px
 
-
+.mini-btn
+  width: 15px
+  height: 15px
+  background-color: #999
+  -webkit-border-radius: 3px
+  -moz-border-radius: 3px
+  -o-border-radius: 3px
+  -ms-border-radius: 3px
+  border-radius: 3px
+  margin: 0
+  padding: 1px 0 0 1px
+  display: inline-block
+  line-height: 16px
+  *
+    margin: 0
+    padding: 0
