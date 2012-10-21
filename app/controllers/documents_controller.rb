@@ -34,4 +34,18 @@ class DocumentsController < ApplicationController
     end
   end
 
+  def show
+    @document = Document.where(:id => params[:id]).first
+    if @document
+      @items = @document.items
+      respond_to do |format|
+        format.json {  render :json => { :result => 0, :data => { :document => @document, :items => @items} }.to_json }
+      end #end respond_to
+    else
+      respond_to do |format|
+        format.json {  render :json => { :result => 1, :message => 'Document not found.'}.to_json }
+      end #end respond_to
+    end
+  end
+
 end

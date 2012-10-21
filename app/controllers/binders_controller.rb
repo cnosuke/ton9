@@ -24,7 +24,7 @@ class BindersController < ApplicationController
   def add_documents
     @binder = Binder.where(:id => params[:binder_id] )
     @binder = @binder.users.select { |u| u.id == current_user.id }
-    @binder << Document.where(:id => params[:document_id], :user_id => current_user.id )
+    @binder.documents << Document.where(:id => params[:document_id], :user_id => current_user.id )
 
     if @binder.save
       respond_to do |format|
@@ -42,9 +42,15 @@ class BindersController < ApplicationController
   # GET /binders
   def index
     @binders = current_user.binders
-    respond_to do |format|
-      format.json {   render :json => {  :result => 0, :data => @binders }.to_json }
-    end #end respond_to
-  end
+
+    if @binders
+      respond_to do |format|
+        format.json { render :json => {  :result => 0, :data => @binders }.to_json(:include => [:documents]) }
+      end #end respond_to
+    else
+      respond_to do |format|
+        format.json { render :json => {  :result => 1, :data => "Binder not found." }.to_json }
+      end #end respond_to      
+    end
 
 end
