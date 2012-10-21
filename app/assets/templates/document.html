@@ -1,0 +1,11 @@
+<div class="row-fluid" ng-init="get();">
+  <div class="well">
+    <h2>{{document.title}}</h2>
+    <form name="create_item" ng-submit="create();">
+      <input type="text" name="body" class="span6" ng-model="item.body" required>
+      <span ng-show="create_item.body.$error.required">入力してください</span>
+      <br />
+      <input type="submit" ng-disabled="create_item.$invalid" class="btn btn-primary" value="追加する">
+    </form>
+  </div>
+</div>
