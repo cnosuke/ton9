@@ -2,26 +2,22 @@
 require 'spec_helper'
 
 describe UsersController do
-  describe "GET 'show'" do
-    before do 
-      @user = create :user
-    end
-
-    it "get /users/:user_id" do
-      get :show, {:id => @user.to_param }
-      response.should be_success
-    end
-  end
-
   context "Userとしてsign_inしている" do
-    describe :index do
+    describe :show do
       it "??として???が返されている"
       it 'users/indexをレンダリングする'
     end
+    describe :all do
+      pending "保留"
+    end
   end
+
   context "Userとしてsign_inしていない" do
-    describe :index do
+    describe :show do
       it "sign_inページにリダイレクトされる"
+    end
+    describe :all do
+      pending "保留"
     end
   end
 end

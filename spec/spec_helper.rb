@@ -13,7 +13,7 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'factories/factory.rb'
-  #require 'database_cleaner'
+  require 'database_cleaner'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -49,18 +49,18 @@ Spork.prefork do
     config.order = "random"
 
     # database cleaner
-    # config.before(:suite) do
-    #   DatabaseCleaner.strategy = :transaction
-    #   DatabaseCleaner.clean_with(:truncation)
-    # end
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
 
-    # config.before(:each) do
-    #   DatabaseCleaner.start
-    # end
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
 
-    # config.after(:each) do
-    #   DatabaseCleaner.clean
-    # end
+    config.after(:each) do
+      DatabaseCleaner.clean
+    end
   end
 
   # spec/spec_helper.rb
