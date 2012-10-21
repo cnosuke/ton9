@@ -1,19 +1,16 @@
-<div class="well sidebar-nav">
-  <h3>サイドバー</h3>
-  <ul class="nav nav-list">
-    <li class="nav-header">Documents
-      <ul ng-repeat="doc in documents">
-        <li>{{doc.title}}</li>
-     </ul>
-    </li>
-    <li class="nav-header">Binders
-      <ul ng-repeat="bind in binders">
-        <li>{{bind.name}}
-          <ul ng-repeat="doc in bind.docs">
-            <li>{{doc.title}}</li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div><!--/.well -->
+<ul class="nav nav-list">
+  <li class="nav-header">Documents
+    <ul ng-repeat="doc in documents">
+      <li>{{doc.title}}</li>
+   </ul>
+  </li>
+  <li class="nav-header">Binders
+    <ul ng-repeat="bind in binders">
+      <li>{{bind.name}}
+        <ul ng-repeat="doc in bind.docs">
+          <li>{{doc.title}}</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>

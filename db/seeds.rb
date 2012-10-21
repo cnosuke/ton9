@@ -3,6 +3,7 @@
 #
 # Examples:
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 # db/seeds/*.rb にマッチするファイルごとにタスクを定義する.
+Dir.glob(File.join(Rails.root, 'db', 'seeds', '*.rb')) do |file|
+  load(file)
+end
