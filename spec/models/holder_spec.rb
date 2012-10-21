@@ -21,7 +21,7 @@ describe Holder do
   end
 
   describe "バリデーション関係" do
-    pending "未定"
+    sample_is_valid :holder
   end
 
   describe "モデルメソッド関係" do

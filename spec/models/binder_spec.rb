@@ -27,7 +27,10 @@ describe Binder do
   end
 
   describe "バリデーション関係" do
-    pending "未定"
+    sample_is_valid :binder
+    unsample_is_not_valid :binder, name: nil
+    unsample_is_not_valid_for_char_count :binder, :name, 129
+    unsample_is_not_valid :binder, name: "aaaa\naaaaa"
   end
 
   describe "モデルメソッド関係" do

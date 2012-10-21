@@ -29,7 +29,9 @@ describe Item do
   end
 
   describe "バリデーション関係" do
-    pending "未定"
+    sample_is_valid       :item
+    sample_is_valid       :item, content: nil
+    unsample_is_not_valid_for_char_count :item, :content, 1025
   end
 
   describe "モデルメソッド関係" do
