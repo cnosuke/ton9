@@ -1,0 +1,81 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree .
+ */
+
+@import "bootstrap"
+@import "bootstrap-responsive"
+
+html, body
+  padding: 0
+  height: 100%
+  min-height: 100%
+  overflow: auto
+  background-color: #fff
+
+.navbar-fixed-top
+  margin: 0
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  .navbar-inner
+    margin: 0
+    padding: 0
+
+.content
+  padding: 0
+  margin: 0
+  position: relative
+  height: auto !important
+  height: 100%
+  min-height: 100%
+  display: block
+  overflow: hidden
+
+  .sidebar-nav
+    width: 150px
+    background: #45484d
+    background: -moz-linear-gradient(-20deg, #333333 10%, #222222 60%)
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(10%,#45484d), color-stop(60%,#222222))
+    background: -webkit-linear-gradient(-20deg, #45484d 10%,#222222 60%)
+    background: -o-linear-gradient(-20deg, #45484d 10%,#222222 60%)
+    background: -ms-linear-gradient(-20deg, #45484d 10%,#222222 60%)
+    background: linear-gradient(20deg, #45484d 10%,#222222 60%)
+    padding-bottom: 100%
+    margin-bottom: -100%
+    .nav
+      padding: 40px 15px
+
+  .document
+    position: absolute
+    top: 50px
+    left: 160px
+    display: block
+    width: auto
+
+  .modal-footer
+    padding: 0
+    position: absolute
+    width: 100%
+    bottom: 0
+    left: 0
+    right: 0
+    line-height: 30px
+    -webkit-border-radius: 0px
+    -moz-border-radius: 0px
+    -o-border-radius: 0px
+    -ms-border-radius: 0px
+    border-radius: 0px
+    .center
+      margin: 0 10px
+
+
