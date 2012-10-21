@@ -15,8 +15,9 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
-/Gemfile.lock
+Gemfile.lock
 db/schema.rb
+Gemfile.lock
 
 ###### Mac OS X #####
 .DS_Store

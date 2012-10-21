@@ -27,6 +27,7 @@ gem "rails3_acts_as_paranoid", "~> 0.2.4"
 gem "pry-rails", "~> 0.2.2"
 gem "capybara", "~> 1.1.2"
 gem "hirb-unicode", "~> 0.0.5"
+gem "database_cleaner"
 
 group :developmant, :test do
   gem "rspec-rails", "~> 2.11.4"
