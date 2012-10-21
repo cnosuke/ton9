@@ -1,12 +1,19 @@
 function SidebarCtrl($http, $scope) {
   $scope.init = function() {
-    $scope.documents = [
-      {title: 'document1'},
-      {title: 'document2'},
-    ];
-    $scope.binders = [
-      {name: 'binder1'},
-      {name: 'binder2'},
-    ];
+    $http.get('./all.json')
+      .success(function(data) {
+        if(data.result == 1) {
+          $scpe.documents = data.docs;
+          $scpe.binders = data.bins;
+        }
+        else {
+          errorHandling();
+        }
+      })
+      .error(errorHandling);
   };
+
+  function errorHandling() {
+    //alert("再度試してください");
+  }
 }
