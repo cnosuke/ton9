@@ -19,7 +19,7 @@ function DocumentCtrl($http, $scope, $routeParams) {
     $http.get('documents/' + $routeParams.document_id)
       .success(function(data) {
         if(data.result == 1) {
-          $scope.document = data.data; 
+          $scope.document = data.data.document; 
         }
         else {
           errorHandling(data.message);

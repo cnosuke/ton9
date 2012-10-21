@@ -5,7 +5,7 @@ angular.module('ton9', [])
         when('/documents/create', {templateUrl: '/assets/create_document.html'}).
         when('/documents/list', {templateUrl: '/assets/list_document.html'}).
         when('/documents/:document_id', {templateUrl: '/assets/document.html', controller: DocumentCtrl}).
-        otherwise({redirectTo: '/'});
+        otherwise({redirectTo: '/#'});
   }])
   .config(["$httpProvider", function(provider) {
     provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');

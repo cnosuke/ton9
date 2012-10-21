@@ -1,14 +1,14 @@
 <ul class="nav nav-list">
   <li class="nav-header">Documents
     <ul ng-repeat="doc in documents">
-      <li>{{doc.title}}</li>
+      <li><a href="#/documents/{{doc.id}}">{{doc.title}}</a></li>
    </ul>
   </li>
   <li class="nav-header">Binders
     <ul ng-repeat="bind in binders">
-      <li>{{bind.name}}
+      <li><a href="#/binders/{{bind.id}}">{{bind.name}}</a>
         <ul ng-repeat="doc in bind.documents">
-          <li>{{doc.title}}</li>
+          <li><a href="#/documents/{{doc.id}}">{{doc.title}}</a></li>
         </ul>
       </li>
     </ul>
