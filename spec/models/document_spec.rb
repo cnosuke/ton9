@@ -27,7 +27,10 @@ describe Document do
   end
 
   describe "バリデーション関係" do
-    pending "未定"
+    sample_is_valid :document
+    unsample_is_not_valid :document, title: nil
+    unsample_is_not_valid_for_char_count :document, :title, 129
+    unsample_is_not_valid :document, title: "aaaa\naaaaa"
   end
 
   describe "モデルメソッド関係" do
