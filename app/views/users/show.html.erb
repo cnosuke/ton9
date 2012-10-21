@@ -1,6 +1,6 @@
 <div class="mypage">
   <ul>
-    <li class="sidebar-nav hidden-phone" ng-hide="sidebar-loading" ng-controller="SidebarCtrl" ng-include src="'<%= asset_path "sidebar.html" %>'" ng-init="init();">Loading...</li>
+    <li class="sidebar-nav hidden-phone" ng-include src="'<%= asset_path "sidebar.html" %>'" ng-init="init();"></li>
     <li class="document" ng-view></li>
   </ul>
 </div>
