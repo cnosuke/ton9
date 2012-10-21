@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
-  def index
+  def show
     #いわゆるところのmypage
-  end
+    respond_to do |format|
+      format.html 
+    end #end respond_to
+  end #end show
 end
