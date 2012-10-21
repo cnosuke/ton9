@@ -17,9 +17,8 @@ class DocumentsController < ApplicationController
   end
 
   # 新しいドキュメントを作成する
-  # POST /users/:user_id/documents
+  # GET /users/:user_id/documents
   def index
-    p params[:user_id]
     @user = User.where( :name => params[:user_id] ).first
     if @user
       @documents = Document.where(:user_id => @user.id )
