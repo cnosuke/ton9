@@ -25,6 +25,7 @@ describe Item do
       @item.parent_document = document
       @item.save
       @item.parent_document.should eq(document)
+      p "¥n\n"
     end
   end
 
