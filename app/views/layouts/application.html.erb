@@ -40,13 +40,25 @@
       <div class="navbar navbar-fixed-top navbar-inverse">
         <div class="navbar-inner">
           <div class="container-fluid">
+            <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
             <%= link_to content_for?(:title) ? yield(:title) : "Ton9", root_path, { :class => "brand" } %></a>
             <div class="container-fluid nav-collapse pull-right">
-            <% if user_signed_in? %>
-              <div class="btn btn-inverse" href="#"><%= current_user.name %></div>
-            <% else %>
-              <%= link_to "Login", new_user_session_path, { :method => :get, :class => "btn btn-inverse" } %>
-            <% end %>
+              <div class="btn-group">
+              <% if user_signed_in? %>
+                <div class="btn btn-inverse" href="#"><%= current_user.name %></div>
+                <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li class="divider"></li>
+                  <li><%= link_to "Logout", destroy_user_session_path, { :method => :delete } %></li>
+                </ul>
+              <% else %>
+                <%= link_to "Login", new_user_session_path, { :method => :get, :class => "btn btn-inverse" } %>
+              <% end %>
+              </div>
             </div><!--/.nav-collapse -->
           </div>
         </div>

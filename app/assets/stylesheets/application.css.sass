@@ -50,6 +50,7 @@ html, body
     -moz-box-shadow: 0px 2px 5px -3px #000000
     -webkit-box-shadow: 0px 2px 5px -3px #000000
     box-shadow: 0px 2px 5px -3px #000000
+    z-index: 150
 
   .mypage
     margin: 0 0 -100%
@@ -58,18 +59,126 @@ html, body
     width: 100%
     display: table
     > ul
-      display: table-row
       list-style: none
+      margin: 0
+      display: box
+      display: -moz-box
+      display: -o-box
+      display: -webkit-box
+      display: -ms-box
+      box-orient: horizontal
+      -moz-box-orient: horizontal
+      -o-box-orient: horizontal
+      -webkit-box-orient: horizontal
+      -ms-box-orient: horizontal
       > li
-        display: table-cell
-        padding: 55px 15px 100%
-
+        display: box
       .sidebar-nav
-        width: 250px
-        background: url(sidebar.jpg) #222
+        position: relative
+        width: 280px
+        padding: 0 5px 100%
+        background: url(backgrounds/sidebar.jpg) #222
         -moz-box-shadow: 2px 0px 5px -3px #000000
         -webkit-box-shadow: 2px 0px 5px -3px #000000
         box-shadow: 2px 0px 5px -3px #000000
+        z-index: 200
+        .nav
+          position: relative
+          padding: 0px 15px 95px
+          top: 40px
+          .nav-header
+            text-transform: none
+            text-shadow: 0px 1px 0px rgba(85,85,85,0.5)
+            filter: dropshadow(color=rgba(85,85,85,0.5), offx=0, offy=1)
+            li > a
+              display: block
+              color: #ccc
+
+            > span
+              border-bottom: 1px solid #555
+              display: block
+              color: #666
+              text-transform: uppercase
+
+            ul
+              list-style: none
+              margin-left: 25px
+
+            > ul.documents > li
+              border-bottom: 1px solid #333
+              position: relative
+              > a
+                margin-right: 16px
+              &:hover > .mini-btn
+                display: block
+
+            > ul.binders > li
+              > a
+                border-bottom: 1px solid #444
+                display: block
+                position: relative
+              > ul > li
+                border-bottom: 1px solid #333
+                position: relative
+
+        .mini-btn
+          display: none
+          position: absolute
+          right: 0
+          top: 0
+
+      .view
+        padding: 0 0 100%
+        margin: 0
+        background: url(backgrounds/document2.jpg) #fff
+        position: relative
+        -webkit-box-flex: 1
+        -moz-box-flex: 1
+        -ms-box-flex: 1
+        -o-box-flex: 1
+        box-flex: 1
+        .inner-view
+          padding: 0px 15px 130px
+          position: relative
+          top: 90px
+          h4
+            text-decoration: underline
+          > ul
+            margin: 0
+            list-style: none
+            > li:not(:empty)
+              border-bottom: 1px solid #aaa
+              padding: 3px 8px
+
+        .document-bar
+          padding: 5px 5px 5px 300px
+          @media screen and (max-width: 767px)
+            padding: 5px
+          position: fixed
+          top: 40px
+          left: 0
+          right: -50px
+          width: auto
+          height: 30px
+          background: url(backgrounds/document-bar.jpg) #666
+          -moz-box-shadow: 0px 2px 5px -3px #000000
+          -webkit-box-shadow: 0px 2px 5px -3px #000000
+          box-shadow: 0px 2px 5px -3px #000000
+          z-index: 150
+          form
+            position: relative
+            width: 100%
+            input
+              margin: 0
+              &[type=text]
+                display: block
+                position: absolute
+                left: 0
+                right: 150px
+                width: auto
+              &[type=submit]
+                position: absolute
+                right: 55px
 
   .footer-shadow
     margin: 0
@@ -100,18 +209,243 @@ html, body
       margin: 0 10px
 
 .mini-btn
-  width: 15px
-  height: 15px
-  background-color: #444
-  -webkit-border-radius: 3px
-  -moz-border-radius: 3px
-  -o-border-radius: 3px
-  -ms-border-radius: 3px
-  border-radius: 3px
   margin: 0
-  padding: 1px 0 0 1px
+  padding: 0
   display: inline-block
-  line-height: 16px
-  *
-    margin: 0
-    padding: 0
+  position: relative
+  width: 16px
+  height: 16px
+  cursor: pointer
+
+.icon
+  background-image: url(icons.png)
+  line-height: 32px
+  width: 32px
+  height: 32px
+
+  &.arrow
+    background-position: 0 0
+  &.arrowright
+    background-position: -48px 0
+  &.article
+    background-position: -96px 0
+  &.bag
+    background-position: -144px 0
+  &.bargraph
+    background-position: -192px 0
+  &.block
+    background-position: -240px 0
+  &.box
+    background-position: -288px 0
+  &.boxdownload
+    background-position: -336px 0
+  &.boxupload
+    background-position: -384px 0
+  &.camera
+    background-position: -432px 0
+  &.cameraminus
+    background-position: -480px 0
+  &.cameraplus
+    background-position: -528px 0
+  &.camerastar
+    background-position: -576px 0
+  &.cardgame
+    background-position: -624px 0
+  &.check
+    background-position: -672px 0
+  &.circleleft
+    background-position: -720px 0
+  &.circleright
+    background-position: -768px 0
+  &.clock
+    background-position: -816px 0
+  &.comment
+    background-position: -864px 0
+  &.commentblack
+    background-position: -912px 0
+  &.contactbook
+    background-position: -960px 0
+  &.contactcard
+    background-position: -1008px 0
+  &.cup
+    background-position: -1056px 0
+  &.download
+    background-position: -1104px 0
+  &.exchange
+    background-position: -1152px 0
+  &.folder
+    background-position: -1200px 0
+  &.folderblock
+    background-position: -1248px 0
+  &.folderminus
+    background-position: -1296px 0
+  &.folderplus
+    background-position: -1344px 0
+  &.gear
+    background-position: -1392px 0
+  &.glitter
+    background-position: -1440px 0
+  &.heart
+    background-position: -1488px 0
+  &.home
+    background-position: -1536px 0
+  &.leftarrow
+    background-position: -1584px 0
+  &.leftturnarrow
+    background-position: -1632px 0
+  &.lightbulb
+    background-position: -1680px 0
+  &.linedpaper
+    background-position: -1728px 0
+  &.linedpapercheck
+    background-position: -1776px 0
+  &.linedpaperlock
+    background-position: -1824px 0
+  &.linedpaperminus
+    background-position: -1872px 0
+  &.linedpaperpencil
+    background-position: -1920px 0
+  &.linedpaperplus
+    background-position: -1968px 0
+  &.lock
+    background-position: 0 -48px
+  &.mail
+    background-position: -48px -48px
+  &.mailblock
+    background-position: -96px -48px
+  &.mailminus
+    background-position: -144px -48px
+  &.mailopened
+    background-position: -192px -48px
+  &.mailplus
+    background-position: -240px -48px
+  &.mailstar
+    background-position: -288px -48px
+  &.mapleleaf
+    background-position: -336px -48px
+  &.melody
+    background-position: -384px -48px
+  &.minus
+    background-position: -432px -48px
+  &.moneyreceipt
+    background-position: -480px -48px
+  &.monitor
+    background-position: -528px -48px
+  &.mouse
+    background-position: -576px -48px
+  &.note
+    background-position: -624px -48px
+  &.notecheck
+    background-position: -672px -48px
+  &.notepencil
+    background-position: -720px -48px
+  &.paper
+    background-position: -768px -48px
+  &.papercheck
+    background-position: -816px -48px
+  &.paperheart
+    background-position: -864px -48px
+  &.paperlock
+    background-position: -912px -48px
+  &.paperminus
+    background-position: -960px -48px
+  &.papermusic
+    background-position: -1008px -48px
+  &.paperpencil
+    background-position: -1056px -48px
+  &.paperphoto
+    background-position: -1104px -48px
+  &.paperplus
+    background-position: -1152px -48px
+  &.paperstar
+    background-position: -1200px -48px
+  &.pencil
+    background-position: -1248px -48px
+  &.pencilplus
+    background-position: -1296px -48px
+  &.phone
+    background-position: -1344px -48px
+  &.phonebook
+    background-position: -1392px -48px
+  &.plug
+    background-position: -1440px -48px
+  &.plus
+    background-position: -1488px -48px
+  &.printer
+    background-position: -1536px -48px
+  &.questionbook
+    background-position: -1584px -48px
+  &.radio
+    background-position: -1632px -48px
+  &.recycle
+    background-position: -1680px -48px
+  &.risegraph
+    background-position: -1728px -48px
+  &.rss
+    background-position: -1776px -48px
+  &.scissors
+    background-position: -1824px -48px
+  &.search
+    background-position: -1872px -48px
+  &.shield
+    background-position: -1920px -48px
+  &.shieldcross
+    background-position: -1968px -48px
+  &.shoppingcart
+    background-position: 0 -96px
+  &.sleep
+    background-position: -48px -96px
+  &.slide
+    background-position: -96px -96px
+  &.smile
+    background-position: -144px -96px
+  &.spanner
+    background-position: -192px -96px
+  &.speaker
+    background-position: -240px -96px
+  &.speakermute
+    background-position: -288px -96px
+  &.star
+    background-position: -336px -96px
+  &.stop
+    background-position: -384px -96px
+  &.turnright
+    background-position: -429px -96px
+  &.unlock
+    background-position: -477px -96px
+  &.upload
+    background-position: -525px -96px
+  &.user
+    background-position: -573px -96px
+  &.userblock
+    background-position: -621px -96px
+  &.userminus
+    background-position: -669px -96px
+  &.userplus
+    background-position: -717px -96px
+  &.users
+    background-position: -765px -96px
+  &.usersblock
+    background-position: -813px -96px
+  &.usersminus
+    background-position: -861px -96px
+  &.usersplus
+    background-position: -909px -96px
+  &.wand
+    background-position: -957px -96px
+  &.warning
+    background-position: -1005px -96px
+  &.wordpress
+    background-position: -1053px -96px
+  &.wrench
+    background-position: -1101px -96px
+
+  &.half
+    position: absolute
+    top: -5px
+    left: -8px
+    -webkit-transform: scale(0.5)
+    -moz-transform: scale(0.5)
+    -ms-transform: scale(0.5)
+    -o-transform: scale(0.5)
+    transform: scale(0.5)

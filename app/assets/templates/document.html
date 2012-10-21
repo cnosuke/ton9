@@ -1,14 +1,12 @@
-<div class="row-fluid" ng-init="get();">
-  <div class="well">
-    <h2>{{document.document.title}}</h2>
+<div ng-init="get();">
+  <div class="document-bar">
     <form name="create_item" ng-submit="additem();">
-      <input type="text" name="body" class="span6" ng-model="item.body" required>
-      <span ng-show="create_item.body.$error.required">入力してください</span>
-      <br />
-      <input type="submit" ng-disabled="create_item.$invalid" class="btn btn-primary" value="追加する">
+      <input type="text" name="body" ng-model="item.body" required>
+      <input type="submit" ng-disabled="create_item.$invalid" class="btn btn-primary btn-inverse" value="追加する">
     </form>
   </div>
-  <div class="well">
+  <div class="inner-view">
+    <h4>{{document.document.title}}</h4>
     <ul>
       <li ng-repeat="item in document.items">{{item.content}}</li>
     </ul>
