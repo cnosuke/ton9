@@ -5,7 +5,8 @@ class Binder < ActiveRecord::Base
 
   validates :name,
     :presence => true,
-    :inclusion => { :in => NAME_LENGTH_RANGE }
+    :format => { :with => /\A\w+\Z/ },
+    :length => { :in => NAME_LENGTH_RANGE }
 
   has_many :documents
   has_many :holders

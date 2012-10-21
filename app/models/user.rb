@@ -13,11 +13,14 @@ class User < ActiveRecord::Base
   attr_accessible :name
 
   validates :name,
-    :presence => true, :uniqueness => true,
-    :format => { :with => /^\w+$/ },
-    :inclusion => { :in => NAME_LENGTH_RANGE}
+    :presence => true,
+    :uniqueness => true,
+    :format => { :with => /\A\w+\Z/ },
+    :length => { :in => NAME_LENGTH_RANGE}
   validates :email,
-    :presence => true, :uniqueness => true, :email => true
+    :presence => true,
+    :uniqueness => true,
+    :email => true
   #パスワードはdevise側でチェックされる
 
   has_many :documents
