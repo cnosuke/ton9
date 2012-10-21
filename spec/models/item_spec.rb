@@ -25,12 +25,14 @@ describe Item do
       @item.parent_document = document
       @item.save
       @item.parent_document.should eq(document)
+      p "¥n\n"
     end
   end
 
   describe "バリデーション関係" do
     sample_is_valid       :item
-    sample_is_valid       :item, content: nil
+    sample_is_valid       :item, content: ""
+    unsample_is_not_valid :item, content: nil
     unsample_is_not_valid_for_char_count :item, :content, 1025
   end
 
