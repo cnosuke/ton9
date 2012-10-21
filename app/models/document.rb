@@ -1,5 +1,13 @@
 class Document < ActiveRecord::Base
+  MAX_TITLE_RANGE = 1..128
+
   attr_accessible :title
+
+  validates :title,
+    :presence => true,
+    :length => { :in => MAX_TITLE_RANGE },
+    :format => { :with => /\A\w+\Z/ }
+
 
   belongs_to :user
   belongs_to :binder
