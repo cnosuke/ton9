@@ -28,7 +28,8 @@ role :db,  "219.117.216.235", :primary => true
 
 namespace :deploy do
   task :start, :roles => :app do
-    run "cd #{current_path}; bundle exec unicorn_rails -c config/unicorn.rb -E production -D --path /ton9"
+    #run "cd #{current_path}; bundle exec unicorn_rails -c config/unicorn.rb -E production -D --path /ton9"
+    run "cd #{current_path}; bundle exec unicorn_rails -c config/unicorn.rb -E production -D"
   end
   task :stop, :roles => :app do
     run "kill -s QUIT `cat /tmp/ton9.pid`"
