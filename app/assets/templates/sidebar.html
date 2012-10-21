@@ -8,7 +8,11 @@
     </li>
     <li class="nav-header">Binders
       <ul ng-repeat="bind in binders">
-        <li>{{bind.name}}</li>
+        <li>{{bind.name}}
+          <ul ng-repeat="doc in bind.docs">
+            <li>{{doc.title}}</li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>

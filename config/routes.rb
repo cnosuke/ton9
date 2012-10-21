@@ -1,19 +1,23 @@
 Ton9::Application.routes.draw do
-  resources :users , :only => [:index] do
-    resources :documents,:only => [:create] do
-      scope :binders do #なんかこいつうまく機能しねえｗ
-        post 'binders/' => 'binders#create'
-        post 'binders/:binder_id' => 'binders#add_documents'
-      end #end scope :binders
-      resources :items, :only => [:create]
-    end #end resources :documents
-  end #end resources :users
 
+  #root
+  root :to => "home#index"
+  #devise
   devise_for :users, :controllers => {
     :sessions => "users/sessions",
     :passwords => "users/passwords",
     :registrations => "users/registrations"
   }
-
-  root :to => "home#index"
+  #relation
+  resources :users , :only => [:show] do
+    resources :documents,:only => [:create, :index] do
+      resources :items, :only => [:create, :index]
+    end #end resources :documents
+  end #end resources :users
+ 
+ scope :binders do #なんかこいつうまく機能しねえｗ
+    post 'binders/' => 'binders#create'
+    post 'binders/:binder_id' => 'binders#add_documents'
+  end #end scope :binders
+  
 end
