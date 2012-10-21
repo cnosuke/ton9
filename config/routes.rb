@@ -11,7 +11,8 @@ Ton9::Application.routes.draw do
   #relation
   resources :users , :only => [:show] do
     get 'all' => 'users#all'
-    resources :documents,:only => [:create, :index, :show] do
+    resources :documents,:only => [:create, :index] do
+      get '/' => 'documents#show'
       resources :items, :only => [:create, :index]
     end #end resources :documents
   end #end resources :users
