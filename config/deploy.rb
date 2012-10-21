@@ -6,7 +6,7 @@ set :application, "app"
 set :scm, "git"
 set :scm_verbose, true
 # https://github.com/cnosuke/ton9
-set :repository,  "gh-hk:cnosuke/ton9"
+set :repository,  "git@github.com:cnosuke/ton9"
 set :branch, "deploy"
 set :deploy_via, :remote_cache
 
