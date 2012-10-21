@@ -3,6 +3,10 @@ class ItemsController < ApplicationController
   #POST /users/:user_id/documents/:document_id/items
   def create
     @document = Document.where( :id => params[:document_id] ).first
+    unless params[:content].present?
+      params[:content] = ""
+    end
+
     if @document
       @document.items << Item.new( :content => params[:content] )
       if @document.save

@@ -4,7 +4,7 @@ class Item < ActiveRecord::Base
   attr_accessible :content
 
   validates :content,
-    :presence => true, :length => { :in => CONTENT_LENGTH_RANGE }
+    :length => { :in => CONTENT_LENGTH_RANGE }
 
   belongs_to :parent_item, :class_name => "Item"
   belongs_to :parent_document, :class_name => "Document"

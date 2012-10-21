@@ -52,5 +52,5 @@ class BindersController < ApplicationController
         format.json { render :json => {  :result => 1, :data => "Binder not found." }.to_json }
       end #end respond_to      
     end
-
+  end
 end
