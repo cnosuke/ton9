@@ -10,8 +10,8 @@ Ton9::Application.routes.draw do
   }
   #relation
   resources :users , :only => [:show] do
-    resources :documents,:only => [:create] do
-      resources :items, :only => [:create]
+    resources :documents,:only => [:create, :index] do
+      resources :items, :only => [:create, :index]
     end #end resources :documents
   end #end resources :users
  
