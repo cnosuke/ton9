@@ -15,7 +15,7 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
-Gemfile.lock
+/Gemfile.lock
 db/schema.rb
 
 ###### Mac OS X #####
@@ -36,6 +36,9 @@ Thumbs.db
 auto-save-list
 tramp
 .\#*
+
+##### Vim #####
+.*.swp
 
 ##### Netbeans #####
 /nbproject/private/
