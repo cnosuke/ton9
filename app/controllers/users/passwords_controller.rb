@@ -1,2 +1,2 @@
-class Users::PasswordsController < Devise::PasswordsControllers
+class Users::PasswordsController < Devise::PasswordsController
 end
