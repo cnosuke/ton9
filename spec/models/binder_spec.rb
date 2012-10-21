@@ -31,6 +31,5 @@ describe Binder do
   end
 
   describe "モデルメソッド関係" do
-    pending "未定"
   end
 end
