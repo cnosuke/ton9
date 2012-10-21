@@ -38,11 +38,11 @@ class DocumentsController < ApplicationController
     if @document
       @items = @document.items
       respond_to do |format|
-        format.json {  render :json => { :result => 0, :data => { :document => @document, :items => @items} }.to_json }
+        format.json {  render :json => { :result => 1, :data => { :document => @document, :items => @items} }.to_json }
       end #end respond_to
     else
       respond_to do |format|
-        format.json {  render :json => { :result => 1, :message => 'Document not found.'}.to_json }
+        format.json {  render :json => { :result => 0, :message => 'Document not found.'}.to_json }
       end #end respond_to
     end
   end

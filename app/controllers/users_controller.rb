@@ -24,11 +24,11 @@ class UsersController < ApplicationController
       end
       
       respond_to do |format|
-        format.json {  render :json => { :result => 0, :data => @data}.to_json }
+        format.json {  render :json => { :result => 1, :data => @data}.to_json }
       end #end respond_to
     else
       respond_to do |format|
-        format.json {  render :json => { :result => 1, :data => "User not found." }.to_json }
+        format.json {  render :json => { :result => 0, :data => "User not found." }.to_json }
       end #end respond_to      
     end
 

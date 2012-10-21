@@ -3,13 +3,11 @@ function MainCtrl($http, $scope) {
   $scope.binders = [];
 
   $scope.sidebar = function() {
-    $http.get('./all.json')
+    $http.get('./all')
       .success(function(data) {
         if(data.result == 1) {
-          $scope.$apply(function() {
-            $scope.documents = data.data.docs;
-            $scope.binders = data.data.bins;
-          });
+          $scope.documents = data.data.documents;
+          $scope.binders = data.data.binders;
         }
         else {
           errorHandling(data.message);

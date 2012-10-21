@@ -1,4 +1,4 @@
-function DocumentCtrl($http, $scope) {
+function DocumentCtrl($http, $scope, $routeParams) {
   $scope.create = function() {
     $http.post('documents/', { title: this.document.title })
       .success(function(data) {
@@ -15,8 +15,8 @@ function DocumentCtrl($http, $scope) {
       });
   };
 
-  $scope.get = function(document_id) {
-    $http.get('documents/' + document_id)
+  $scope.get = function() {
+    $http.get('documents/' + $routeParams.document_id)
       .success(function(data) {
         if(data.result == 1) {
           $scope.document = data.data; 
