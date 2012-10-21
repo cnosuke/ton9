@@ -1,7 +1,7 @@
 <ul class="nav nav-list">
   <li class="nav-header">Documents
     <ul ng-repeat="doc in documents">
-      <li><a href="#/documents/{{doc.id}}">{{doc.title}}</a></li>
+      <li><a href="#/documents/{{doc.id}}">{{doc.title}}</a><span ng-click="delete($index);" ng-controller="DocumentCtrl">[x]</span></li>
    </ul>
   </li>
   <li class="nav-header">Binders
