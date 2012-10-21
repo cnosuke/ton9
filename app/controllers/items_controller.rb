@@ -9,8 +9,7 @@ class ItemsController < ApplicationController
 
     if @document
       @item = Item.new( :content => params[:content] )
-      @document.items << @item
-      if @document.save
+      if @document.items << @item
         respond_to do |format|
           format.json { render :json => {   :result => 1, :data => @item }.to_json }
         end #respond_to
