@@ -32,8 +32,12 @@ describe Item do
   describe "バリデーション関係" do
     sample_is_valid       :item
     sample_is_valid       :item, content: ""
-    unsample_is_not_valid :item, content: nil
     unsample_is_not_valid_for_char_count :item, :content, 1025
+
+    it "Item.contentが空のときは空文字として保存される" do
+      sample = FactoryGirl.build :item, {:content => nil}
+      sample.should be_valid
+    end
   end
 
   describe "モデルメソッド関係" do

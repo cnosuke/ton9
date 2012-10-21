@@ -1,0 +1,11 @@
+<div class="row-fluid" ng-controller="BinderCtrl">
+  <div class="well">
+    <h2>バインダの作成</h2>
+    <form name="create_binder" ng-submit="create();">
+      <input type="text" name="name" class="span6" ng-model="binder.name" required>
+      <span ng-show="create_binder.name.$error.required">入力してください</span>
+      <br />
+      <input type="submit" ng-disabled="create_binder.$invalid" class="btn btn-primary" value="作成する">
+    </form>
+  </div>
+</div>

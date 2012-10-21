@@ -13,7 +13,7 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'factories/factory.rb'
-  require 'database_cleaner'
+  #require 'database_cleaner'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -49,18 +49,18 @@ Spork.prefork do
     config.order = "random"
 
     # database cleaner
-    config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
-      DatabaseCleaner.clean_with(:truncation)
-    end
+    # config.before(:suite) do
+    #   DatabaseCleaner.strategy = :transaction
+    #   DatabaseCleaner.clean_with(:truncation)
+    # end
 
-    config.before(:each) do
-      DatabaseCleaner.start
-    end
+    # config.before(:each) do
+    #   DatabaseCleaner.start
+    # end
 
-    config.after(:each) do
-      DatabaseCleaner.clean
-    end
+    # config.after(:each) do
+    #   DatabaseCleaner.clean
+    # end
   end
 
   # spec/spec_helper.rb
@@ -84,7 +84,7 @@ Spork.prefork do
 
   def non_uniq_is_not_valid(sample_name, column_name)
     it "#{sample_name}で#{column_name}が重複しているとき保存されない" do
-      sample1 = FactoryGirl.build sample_name
+      sample1 = FactoryGirl.create sample_name
       sample2 = FactoryGirl.build sample_name, column_name => sample1.send(column_name)
       sample2.should_not be_valid
     end
@@ -92,7 +92,7 @@ Spork.prefork do
 
   def unsample_is_not_valid_for_char_count(sample_name, column_name, count)
     it "#{sample_name}で#{column_name}が#{count}文字のとき保存されない" do
-      sample = FactoryGirl.build sample_name, data_name => ("a" * count)
+      sample = FactoryGirl.build sample_name, column_name => ("a" * count)
       sample.should_not be_valid
     end
   end
