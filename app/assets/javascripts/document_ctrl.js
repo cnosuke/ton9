@@ -45,4 +45,9 @@ function DocumentCtrl($http, $scope, $routeParams) {
         errorHandling(data.message);
       });
   };
+
+  $scope.delete = function(i) {
+      $scope.documents.splice(i,1);
+  }
+
 }

@@ -2,8 +2,8 @@
   <li class="nav-header">Documents
     <ul ng-repeat="doc in documents">
       <li>
-        {{doc.title}}
-        <div class="mini-btn"><i class="icon-pencil"></i></div>
+        <a href="#/documents/{{doc.id}}">{{doc.title}}</a>
+        <span ng-click="delete($index);" ng-controller="DocumentCtrl">[x]</span>
         <div class="mini-btn"><i class="icon-trash"></i></div>
       </li>
    </ul>
@@ -14,7 +14,6 @@
         <ul ng-repeat="doc in bind.docs">
           <li>
             {{doc.title}}
-            <div class="mini-btn"><i class="icon-pencil"></i></div>
             <div class="mini-btn"><i class="icon-trash"></i></div>
           </li>
         </ul>
