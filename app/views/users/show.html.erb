@@ -1,4 +1,2 @@
-<div ng-controller="MainCtrl">
-  <div class="sidebar-nav" ng-include src="'<%= asset_path "sidebar.html" %>'" ng-init="sidebar();"></div>
-  <div class="document" ng-view></div>
-</div>
+<div class="sidebar-nav" ng-hide="sidebar-loading" ng-controller="SidebarCtrl" ng-include src="'<%= asset_path "sidebar.html" %>'" ng-init="init();">Loading...</div>
+<div class="document" ng-view></div>

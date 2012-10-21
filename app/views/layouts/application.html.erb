@@ -47,11 +47,6 @@
             <% else %>
               <div class="btn" href="#">ゲスト</div>
             <% end %>
-              <a href="#">
-                <div class="mini-btn"><i class="icon-pencil"></i></div>
-                 項目1</a>
-              <a href="#"><div class="mini-btn"><i class="icon-trash"></i></div> 項目2</a>
-              <a href="#"><i class="icon-ban-circle"></i> 項目3</a>
             <% if user_signed_in? %>
               <%= link_to "Logout", destroy_user_session_path, { :method => :delete } %>
             <% else %>
