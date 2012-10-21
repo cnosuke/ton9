@@ -43,14 +43,9 @@
             <%= link_to content_for?(:title) ? yield(:title) : "Ton9", root_path, { :class => "brand" } %></a>
             <div class="container-fluid nav-collapse pull-right">
             <% if user_signed_in? %>
-              <div class="btn" href="#"><%= current_user.name %></div>
+              <div class="btn btn-inverse" href="#"><%= current_user.name %></div>
             <% else %>
-              <div class="btn" href="#">ゲスト</div>
-            <% end %>
-            <% if user_signed_in? %>
-              <%= link_to "Logout", destroy_user_session_path, { :method => :delete } %>
-            <% else %>
-              <%= link_to "Login", new_user_session_path, { :method => :get } %>
+              <%= link_to "Login", new_user_session_path, { :method => :get, :class => "btn btn-inverse" } %>
             <% end %>
             </div><!--/.nav-collapse -->
           </div>
