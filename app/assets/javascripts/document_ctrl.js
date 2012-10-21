@@ -47,7 +47,20 @@ function DocumentCtrl($http, $scope, $routeParams) {
   };
 
   $scope.delete = function(i) {
-      $scope.documents.splice(i,1);
-  }
+      $http.delete('documents/'+$scope.documents[i].id, { })
+          .success(function(data) {
+              if(data.result == 1){
+                  $scope.documents.splice(i,1);
+              }
+              else {
+                  errorHandling(data.message);
+              }
+          })
+          .error(function() {
+              errorHandling(data.message);              
+          });
+
+      
+  };
 
 }
