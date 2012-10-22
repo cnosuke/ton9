@@ -1,15 +1,21 @@
 <ul class="nav nav-list">
   <li class="nav-header">
-    <span>Documents</span>
+    <span>
+      <a href="#/documents/list" title="See All Documents">Documents</a>
+      <div class="mini-btn"><a href="#/documents/create" class="icon plus half"  title="Add Document"></a></div>
+    </span>
     <ul class="documents">
       <li ng-repeat="doc in documents">
-        <a href="#/documents/{{doc.id}}">{{doc.title}}</a>
         <div class="mini-btn"><span class="icon stop half" ng-click="delete($index);" ng-controller="DocumentCtrl" title="Remove '{{doc.title}}'"></span></div>
+        <a href="#/documents/{{doc.id}}">{{doc.title}}</a>
       </li>
    </ul>
   </li>
   <li class="nav-header">
-    <span>Binders</span>
+    <span>
+      <a href="#/binders/list" title="See All Binders">Binders</a>
+      <div class="mini-btn"><a href="#/binders/create" class="icon plus half"  title="Add Binder"></a></div>
+    </span>
     <ul class="binders">
       <li ng-repeat="bind in binders">
         <a href="#/binders/{{bind.id}}">{{bind.name}}</a>

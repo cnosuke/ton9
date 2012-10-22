@@ -64,7 +64,11 @@
         </div>
       </div>
       <div class="navbar-shadow"></div>
-      <%= yield %>
+      <div class="mypage" ng-controller="MainCtrl">
+        <ul>
+          <%= yield %>
+        </ul>
+      </div>
       <div class="footer-shadow"></div>
       <footer class="modal-footer">
         <p class="center">Copyright (c) 2012 <%= link_to "Has-key Inc.", "http://has-key.org" %></p>

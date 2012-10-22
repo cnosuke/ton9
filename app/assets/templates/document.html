@@ -1,12 +1,17 @@
 <div ng-init="get();">
-  <div class="document-bar">
+  <div class="view-header document">
     <form name="create_item" ng-submit="additem();">
-      <input type="text" name="body" ng-model="item.body" required>
-      <input type="submit" ng-disabled="create_item.$invalid" class="btn btn-primary btn-inverse" value="追加する">
+      <ul>
+        <li class="document-bar-text"><input type="text" name="body" ng-model="item.body" required></li>
+        <li class="document-bar-submit"><input type="submit" ng-disabled="create_item.$invalid" class="btn btn-primary btn-inverse" value="追加する"></li>
+      </ul>
     </form>
   </div>
-  <div class="inner-view">
-    <h4>{{document.document.title}}</h4>
+  <div class="inner-view document">
+    <a href="#/documents/list" class="icon leftarrow threequarters" title="'"></a>
+    <h3>
+      {{document.document.title}}
+    </h3>
     <ul>
       <li ng-repeat="item in document.items">{{item.content}}</li>
     </ul>
