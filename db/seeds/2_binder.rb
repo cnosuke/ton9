@@ -16,4 +16,4 @@ binder_sets.each do |binder|
   
   binder.save
 end
-puts binder sets created
+puts "binder sets created"
