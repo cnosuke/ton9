@@ -163,30 +163,80 @@ describe BindersController do
 
   describe :add_documents do
     context %Q(userとしてsign_inしている時) do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      it %Q{(TT)sign_inしている} do
+        controller.user_signed_in?.should eq(true)
+        controller.current_user.should eq(user)
+      end # TT sign_in
+
       context %Q(documentはuserの所有物) do
+        let(:document) { create :document, :user_id => user.id }
+
+        it "(TT)documentはuserの所有物" do
+          user.documents.should include(document)
+        end
+
         context %Q(documentはBinderにない) do
+          let(:binder) { create :binder }
+
+          it "(TT)documentはbinderにない" do
+            binder.documents.should_not include(document)
+          end
+
           context %Q(バリデーションが通った時) do
+
+            it "(TT)バリデーションが通る" do
+              binder.documents << document
+              binder.should be_valid
+            end
+
             pending "保留"
           end # バリデーションが通った時
           context %Q(バリデーションが通らなかった時) do
+            before { Binder.any_instance.stub(:save).and_return(false) }
+
+            it "(TT)バリデーションが通らない" do
+              binder.documents.should_not include(document)
+            end
+
             pending "保留"
           end # バリデーションが通らなかった時
         end # documentはBinderにない
 
         context %Q(documentはすでにBinderにある) do
+          let(:binder) { create :binder }
+          before { binder.documents << document }
+
+          it "(TT)documentはbinderにある" do
+            binder.documents.should include(document)
+          end
+
           pending "保留"
         end # documentはすでにBinderにある
       end # documentはuserの所有物
 
       context %Q(documentはuserの所有物でない) do
+        let(:document) { create :document }
+
+        it "(TT)documentは@userの所有物でない" do
+          user.documents.should_not include(document)
+        end
+
         pending "保留"
       end # documentはuserの所有物でない
     end # userとしてsign_inしている時
 
     context %Q(userとしてsign_inしていない時) do
+
+      it %Q{(TT)sign_inしていない} do
+        controller.user_signed_in?.should eq(false)
+      end # TT sign_inしていない
+
       pending "保留"
     end # userとしてsign_inしていない時
-  end
+  end # add_document
 
   describe :index do
     pending "保留"
