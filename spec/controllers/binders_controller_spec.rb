@@ -159,10 +159,33 @@ describe BindersController do
         end
       end # jsonデータ
     end # userとしてsign_inしていない時
-  end
+  end # create
 
   describe :add_documents do
-    pending "保留"
+    context %Q(userとしてsign_inしている時) do
+      context %Q(documentはuserの所有物) do
+        context %Q(documentはBinderにない) do
+          context %Q(バリデーションが通った時) do
+            pending "保留"
+          end # バリデーションが通った時
+          context %Q(バリデーションが通らなかった時) do
+            pending "保留"
+          end # バリデーションが通らなかった時
+        end # documentはBinderにない
+
+        context %Q(documentはすでにBinderにある) do
+          pending "保留"
+        end # documentはすでにBinderにある
+      end # documentはuserの所有物
+
+      context %Q(documentはuserの所有物でない) do
+        pending "保留"
+      end # documentはuserの所有物でない
+    end # userとしてsign_inしている時
+
+    context %Q(userとしてsign_inしていない時) do
+      pending "保留"
+    end # userとしてsign_inしていない時
   end
 
   describe :index do
