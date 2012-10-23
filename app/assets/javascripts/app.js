@@ -7,7 +7,7 @@ angular.module('ton9', [])
         when('/documents/:document_id', {templateUrl: '/assets/document.html', controller: DocumentCtrl}).
 
         when('/binders/create', {templateUrl: '/assets/create_binder.html'}).
-        when('/binders/:binder_id', {templateUrl: '/assets/binder.html', controller: ItemCtrl}).
+        when('/binders/:binder_id', {templateUrl: '/assets/binder.html', controller: BinderCtrl}).
         otherwise({redirectTo: '/'});
   }])
   .config(["$httpProvider", function(provider) {
