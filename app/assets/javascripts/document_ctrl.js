@@ -20,6 +20,7 @@ function DocumentCtrl($http, $scope, $routeParams) {
       .success(function(data) {
         if(data.result == 1) {
           $scope.document = data.data; 
+          console.log($scope.document.items);
         }
         else {
           errorHandling(data.message);

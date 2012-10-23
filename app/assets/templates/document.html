@@ -13,7 +13,14 @@
       {{document.document.title}}
     </h3>
     <ul>
-      <li ng-repeat="item in document.items">{{item.content}}</li>
+      <li ng-repeat="item in document.items" ng-include="'items_renderer.html'"></li>
     </ul>
   </div>
 </div>
+
+<script type="text/ng-template" id="items_renderer.html">
+   {{item.item.content}}
+       <ul ng-show="item.children.length > 0">
+         <li ng-repeat="item in item.children" ng-include="'items_renderer.html'"></li>
+       </ul>
+</script>
