@@ -8,7 +8,7 @@ angular.module('ton9', [])
 
         when('/binders/create', {templateUrl: '/assets/create_binder.html'}).
         when('/binders/:binder_id', {templateUrl: '/assets/binder.html', controller: ItemCtrl}).
-        otherwise({redirectTo: '/#'});
+        otherwise({redirectTo: '/'});
   }])
   .config(["$httpProvider", function(provider) {
     provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
