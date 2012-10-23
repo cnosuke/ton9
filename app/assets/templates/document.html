@@ -13,7 +13,9 @@
       {{document.document.title}}
     </h3>
     <ul>
-      <li ng-repeat="item in document.items">{{item.content}}</li>
+      <li ng-repeat="item in document.items" id="items_renderer">
+        {{item.content}}
+      </li>
     </ul>
   </div>
 </div>
