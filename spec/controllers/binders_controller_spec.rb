@@ -2,27 +2,72 @@
 require 'spec_helper'
 
 describe BindersController do
+  let(:binder_attributes) {{:binder => attributes_for(:binder)}}
   
   context "userとしてログインしているとき" do
+    let(:user) {create :user}
+    before {sign_in user}
+
     describe :create do
-      context "成功した時" do
+
+      context "jsonリクエスト成功時" do
+
         describe "データベース操作" do
-          it "Binderが作成されている"
-          it "作成されたBinderは作成者からアクセス権がある"
-        end
+
+          it "Binderが作成されている" do
+            expect{
+              post :create, binder_attributes, :format => :json
+            }.to change{ Binder.count }.by(1)
+          end
+
+          it "作成されたBinderは作成者からアクセス権がある" do
+            post :create, binder_attributes, :format => :json
+            Binder.last.users.should include(user)
+          end
+
+        end # データベース関係
+
         describe "Jsonデータ" do
-          it "resultとして1が返される"
-          it "dataとしてbinderデータが返される"
+          before {post :create, binder_attributes, :format => :json}
+          subject {JSON.parse(response.body)}
+
+          it "resultとして1が返される" do
+            should include(:result => 1)
+          end
+
+          it "dataとしてbinderデータが返される" do
+            should include(:data => Binder.last.to_json)
+          end
+
+        end #Jsonデータ
+
+      end # jsonリクエスト成功時
+
+      context "jsonリクエスト失敗時" do
+        before do
+          Binder.any_instance.stub(:save).and_return(false)
         end
-      end
-      context "失敗した時" do
+
         describe "データベース操作関係" do
-          it "Binderが作成されていない"
+          it "Binderが作成されていない" do
+            expect{
+              post :create, binder_attributes, :format => :json
+            }.to_not change{ Binder.count }
+          end
         end
         describe "Jsonデータ" do
-          it "resultとして0が返される"
-          it "messageとして'Binder save faild.'が返される"
-          it "dataはない"
+          before {post :create, binder_attributes, :format => :json}
+          subject {JSON.parse(response.body)}
+
+          it "resultとして0が返される" do
+            should include(:result => 0)
+          end
+          it "messageとして'Binder save faild.'が返される" do
+            should include(:message => 'Binder save faild.')
+          end
+          it "dataはない" do
+            should_not include(:data)
+          end
         end
       end
     end
