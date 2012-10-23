@@ -8,16 +8,16 @@ describe ItemsController do
   end
 
   describe :create do
-    context "成功した時1" do
+    context "成功した時" do
       it "Itemが作成されている"
-      it "resultとして1が返される"
+      it "resultとしてが返される"
       it "encodingとして??が返される"
       pending "まだあるかも"
     end
 
-    context "失敗した時0" do
+    context "失敗した時" do
       it "Itemが作成されない"
-      it "resultとして0が返される"
+      it "resultとしてが返される"
       it "dataとして??が返される"
       pending "まだあるかも"
     end
