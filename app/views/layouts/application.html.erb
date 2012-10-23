@@ -36,46 +36,40 @@
   </head>
   <body>
 
-    <div class="navbar navbar-fixed-top navbar-inverse">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <%= link_to content_for?(:title) ? yield(:title) : "Ton9", root_path, { :class => "brand" } %></a>
-          <div class="container-fluid nav-collapse">
-            <ul class="nav pull-right">
-              <li>
-                <div class="btn-group">
-                  <% if user_signed_in? %>
-                    <div class="btn" href="#"><%= current_user.name %></div>
-                  <% else %>
-                    <div class="btn" href="#">ゲスト</div>
-                  <% end %>
-                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><i class="icon-pencil"></i> 項目1</a></li>
-                    <li><a href="#"><i class="icon-trash"></i> 項目2</a></li>
-                    <li><a href="#"><i class="icon-ban-circle"></i> 項目3</a></li>
-                    <li class="divider"></li>
-                    <% if user_signed_in? %>
-                      <li><%= link_to "Logout", destroy_user_session_path, { :method => :delete } %></li>
-                    <% else %>
-                      <li><%= link_to "Login", new_user_session_path, { :method => :get } %></li>
-                    <% end %>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div><!--/.nav-collapse -->
+    <div class="content">
+      <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+          <div class="container-fluid">
+            <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <%= link_to content_for?(:title) ? yield(:title) : "Ton9", root_path, { :class => "brand" } %></a>
+            <div class="container-fluid nav-collapse pull-right">
+              <div class="btn-group">
+              <% if user_signed_in? %>
+                <div class="btn btn-inverse" href="#"><%= current_user.name %></div>
+                <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li class="divider"></li>
+                  <li><%= link_to "Logout", destroy_user_session_path, { :method => :delete } %></li>
+                </ul>
+              <% else %>
+                <%= link_to "Login", new_user_session_path, { :method => :get, :class => "btn btn-inverse" } %>
+              <% end %>
+              </div>
+            </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="content">
-      <%= yield %>
+      <div class="navbar-shadow"></div>
+      <div class="mypage" ng-controller="MainCtrl">
+        <ul>
+          <%= yield %>
+        </ul>
+      </div>
+      <div class="footer-shadow"></div>
       <footer class="modal-footer">
         <p class="center">Copyright (c) 2012 <%= link_to "Has-key Inc.", "http://has-key.org" %></p>
       </footer>

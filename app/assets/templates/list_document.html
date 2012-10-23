@@ -1,5 +1,11 @@
-<div class="row-fluid">
-  <div class="well">
-    <h2>ドキュメント一覧</h2>
-  </div>
+<div class="view-header">
+  <h4>ドキュメント一覧</h4>
+</div>
+<div class="inner-view list">
+  <ul>
+    <li ng-repeat="doc in documents">
+      <div class="mini-btn"><span class="icon stop half" ng-click="delete($index);" ng-controller="DocumentCtrl" title="Remove '{{doc.title}}'"></span></div>
+      <a href="#/documents/{{doc.id}}">{{doc.title}}</a>
+    </li>
+  </ul>
 </div>

@@ -10,10 +10,10 @@ class UsersController < ApplicationController
   def all
     @data = { }
     @user = User.where( :name => params[:user_id] ).first
-    @data[:user] = @user
 
-    if @data[:user]
-      @data[:documents] = Document.where( :user_id => @data[:user].id )
+    if @user
+      @data[:user] = @user
+      @data[:documents] = @user.documents
       @data[:binders] = []
       @user.binders(:include => [:documents] ).each do |binder|
         @data[:binders] << { 
