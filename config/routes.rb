@@ -15,11 +15,11 @@ Ton9::Application.routes.draw do
       resources :items, :only => [:create, :index]
     end #end resources :documents
   end #end resources :users
- 
- scope :binders do #なんかこいつうまく機能しねえｗ
+
+  scope :binders do #なんかこいつうまく機能しねえｗ
     get 'binders/' => 'binders#index'
     post 'binders/' => 'binders#create'
     post 'binders/:binder_id' => 'binders#add_documents'
   end #end scope :binders
-  
+
 end

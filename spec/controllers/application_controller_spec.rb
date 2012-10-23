@@ -2,11 +2,6 @@
 require 'spec_helper'
 
 describe ApplicationController do
-  controller do
-    def after_sign_in_path_for(resource)
-        super resource
-    end
-  end
 
   describe :after_sign_in_path_for do
     it "user_pathへのpathを返す" do

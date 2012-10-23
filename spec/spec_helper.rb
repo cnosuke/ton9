@@ -97,6 +97,21 @@ Spork.prefork do
       sample.should_not be_valid
     end
   end
+
+  def define_dummy_controller action_symbol
+    controller do
+      skip_filter _process_action_callbacks.map(&:filter)
+
+      class_eval <<-"ACTION"
+      def #{action_symbol.to_s}
+        respond_to do |format|
+          format.html { render :text => "http requested" }
+          format.json { render :json => { :data => "json data" }.to_json }
+        end #end respond_to
+      end
+      ACTION
+    end
+  end
 end
 
 Spork.each_run do

@@ -4,7 +4,7 @@ class BindersController < ApplicationController
   #バインダの作成
   # POST /users/:user_id/documents/:document_id
   def create
-    @binder = Binder.new(:name => params[:name])
+    @binder = Binder.new(params[:binder])
     @binder.users << current_user
     
     if @binder.save
