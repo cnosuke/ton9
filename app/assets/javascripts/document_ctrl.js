@@ -1,3 +1,8 @@
+$(".open").live('click',function() {
+   form = $($(this).parent().find("form")[0]);
+   form.toggle();
+});
+
 function DocumentCtrl($http, $scope, $routeParams) {
   $scope.create = function() {
     $http.post('documents/', { title: this.document.title })
@@ -31,12 +36,13 @@ function DocumentCtrl($http, $scope, $routeParams) {
       });
   };
 
-  $scope.additem = function() {
-    $http.post('documents/' + $routeParams.document_id + '/items', {content: this.item.body})
+  $scope.additem = function(id) {
+    $http.post('documents/' + $routeParams.document_id + '/items', {content: this.item.content, parent_item_id: id})
       .success(function(data) {
         if(data.result == 1) {
-          $scope.document.items.unshift(data.data);
+          if(!id) $scope.document.items.unshift({item: data.data});
           $scope.item.body = "";
+          $scope.open = 0;
         }
         else {
           errorHandling(data.message);
