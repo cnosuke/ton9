@@ -1,6 +1,6 @@
 function BinderCtrl($http, $scope, $routeParams) {
   $scope.create = function() {
-    $http.post('/binders/', { title: this.binder.name })
+    $http.post('/binders/', { name: this.binder.name })
       .success(function(data) {
         if(data.result == 1) {
           $scope.binders.push(data.data); 
