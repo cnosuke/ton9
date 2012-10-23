@@ -5,9 +5,7 @@ class Document < ActiveRecord::Base
 
   validates :title,
     :presence => true,
-    :length => { :in => MAX_TITLE_RANGE },
-    :format => { :with => /\A\w+\Z/ }
-
+    :length => { :in => MAX_TITLE_RANGE }
 
   belongs_to :user
   belongs_to :binder
