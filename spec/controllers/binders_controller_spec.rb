@@ -170,7 +170,8 @@ describe BindersController do
       end # jsonデータ
     end # バリデーションが通らなかった時
   end # create
-
+end
+=begin
   describe :add_documents do
     let(:user) { create :user }
     let(:document) { create :document, :user_id => user.id }
@@ -227,26 +228,95 @@ describe BindersController do
     end # 正当である時
 
     context "sign_inしていない時" do
-      pending "保留"
+      before {sign_out user}
+
+      describe "Test" do
+        it "(TT)sign_inしていない" do
+          controller.user_signed_in?.should eq(false)
+        end # TT sign_inしていない
+      end
+
+      it "BinderにDocumentが追加されない" do
+        expect {
+          post :add_documents, valid_hash
+        }.to_not change{ binder.documents.count }
+      end
+
+      describe "jsonデータ" do
+        before do
+          post :add_documents, valid_hash
+        end
+        subject {JSON.parse(response.body)}
+
+        it ":result => 0" do
+          should include("result" => 0)
+        end
+
+        it ":message => 'Please sign_in.'" do
+          should include("message" => 'Please sign_in.')
+        end
+      end # jsonデータ
     end
 
     context "documentがuserの所有物でない時" do
-      pending "保留"
+      before do
+        document.user = create(:user)
+        document.save
+      end
+
+      describe "Test" do
+        it "(TT)documentがuserの所有物でない" do
+          user.documents.should_not include(document)
+        end
+      end
+
+      it "BinderにDocumentが追加されない" do
+        expect {
+          post :add_documents, valid_hash
+        }.to_not change{ binder.documents.count }
+      end
+
+      describe "jsonデータ" do
+        before do
+          post :add_documents, valid_hash
+        end
+        subject {JSON.parse(response.body)}
+
+        it ":result => 0" do
+          should include("result" => 0)
+        end
+
+        it ":message => 'Please sign_in.'" do
+          should include("message" => "You don't have this document.")
+        end
+      end # jsonデータ
     end
 
     context "binderを操作する権限がuserにない時" do
+      before do
+        Holder.where(:binder_id => binder.id)
+              .where(:user_id => user.id)
+              .delete_all
+        user.reload
+        binder.reload
+      end
+
+      describe "Test" do
+        it "(TT)binderを操作する権限がuserにない" do
+          user.binders.should_not include(binder)
+          binder.users.should_not include(user)
+        end
+      end
+
       pending "保留"
     end
-    
+
     context "バリデーションが通らない時" do
       pending "保留"
     end
 
   end # add_documents
 end
-
-
-=begin
 
 if false
   describe :add_documents do
@@ -396,3 +466,4 @@ if false
   end
 end
 =end
+
