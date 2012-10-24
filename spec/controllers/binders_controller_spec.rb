@@ -170,8 +170,7 @@ describe BindersController do
       end # jsonデータ
     end # バリデーションが通らなかった時
   end # create
-end
-=begin
+
   describe :add_documents do
     let(:user) { create :user }
     let(:document) { create :document, :user_id => user.id }
@@ -222,7 +221,7 @@ end
         end
 
         it ":data => Binderデータ" do
-          should include("data" => binder.to_json)
+          should include("data" => JSON.parse(binder.to_json))
         end
       end # jsonデータ
     end # 正当である時
@@ -286,7 +285,7 @@ end
           should include("result" => 0)
         end
 
-        it ":message => 'Please sign_in.'" do
+        it ":message => 'You don't have this document.'" do
           should include("message" => "You don't have this document.")
         end
       end # jsonデータ
@@ -308,158 +307,65 @@ end
         end
       end
 
-      pending "保留"
+      it "BinderにDocumentが追加されない" do
+        expect {
+          post :add_documents, valid_hash
+        }.to_not change{ binder.documents.count }
+      end
+
+      describe "jsonデータ" do
+        before do
+          post :add_documents, valid_hash
+        end
+        subject {JSON.parse(response.body)}
+
+        it ":result => 0" do
+          should include("result" => 0)
+        end
+
+        it ":message => 'permission denied.'" do
+          should include("message" => "Permission denied.")
+        end
+      end # jsonデータ
     end
 
     context "バリデーションが通らない時" do
-      pending "保留"
-    end
+      before { Binder.any_instance.stub(:save).and_return(false) }
 
+      describe "Test" do
+        it "(TT)バリデーションが通らない" do
+          binder.documents << document
+          binder.save.should be_false
+        end
+      end
+
+      it "BinderにDocumentが追加されない" do
+        expect {
+          post :add_documents, valid_hash
+        }.to_not change{ binder.documents.count }
+      end
+
+      describe "jsonデータ" do
+        before do
+          post :add_documents, valid_hash
+        end
+        subject {JSON.parse(response.body)}
+
+        it ":result => 0" do
+          should include("result" => 0)
+        end
+
+        it ":message => 'permission denied.'" do
+          should include("message" => "Binder save faild.")
+        end
+      end # jsonデータ
+    end
   end # add_documents
+
+
 end
 
-if false
-  describe :add_documents do
-    let(:user) { create :user }
-    let(:document) { create :document, :user_id => user.id }
-    let(:binder) { create :binder }
-    let(:valid_hash) do
-      {:user_id => user.name, :document_id => document.id, :binder_id => binder.id }
-    end
-    before {request.env["HTTP_ACCEPT"] = "application/json"}
-    before { sign_in user }
-    before { binder.users << user }
-
-    context %Q(userとしてsign_inしている時) do
-
-      it %Q{(TT)sign_inしている} do
-        controller.user_signed_in?.should eq(true)
-        controller.current_user.should eq(user)
-      end # TT sign_in
-
-      context %Q(jsonリクエストの時) do
-        describe %Q{TT} do
-          define_dummy_controller :add_documents
-
-          it "(TT)jsonリクエストになる" do
-            post :add_documents, valid_hash
-            response.content_type.should eq("application/json")
-          end
-        end # TT jsonリクエスト
-      end
-
-      context %Q(htmlリクエストの時) do
-        describe %Q{TT} do
-          define_dummy_controller :add_documents
-          before {request.env["HTTP_ACCEPT"] = "text/html"}
-
-          it "(TT)htmlリクエストになる" do
-            post :add_documents, valid_hash
-            response.content_type.should eq("text/html")
-          end
-        end # TT jsonリクエスト
-      end
-
-
-      context %Q(documentはuserの所有物) do
-
-        it "(TT)documentはuserの所有物" do
-          user.documents.should include(document)
-        end
-
-        context "binderを操作する権限がuserにある" do
-
-          it "(TT)binderを操作する権限がuserにある" do
-            binder.users.should include(user)
-          end
-
-          context %Q(documentはBinderにない) do
-
-            it "(TT)documentはbinderにない" do
-              binder.documents.should_not include(document)
-            end
-
-            context %Q(バリデーションが通った時) do
-
-              it "(TT)バリデーションが通る" do
-                binder.documents << document
-                binder.should be_valid
-              end
-
-              it "BinderにDocumentが追加される"
-
-              describe "jsonデータ" do
-                before do
-                  post :create, valid_hash
-                end
-                subject {JSON.parse(response.body)}
-
-                it ":result => 1" do
-                  should include("result" => 1)
-                end
-
-                it ":data => Binderデータ" do
-                  should include("data" => binder.to_json)
-                end
-              end # jsonデータ
-              pending "保留"
-            end # バリデーションが通った時
-            context %Q(バリデーションが通らなかった時) do
-              before { Binder.any_instance.stub(:save).and_return(false) }
-
-              it "(TT)バリデーションが通らない" do
-                binder.documents.should_not include(document)
-              end
-
-              pending "保留"
-            end # バリデーションが通らなかった時
-          end # documentはBinderにない
-
-          context %Q(documentはすでにBinderにある) do
-            let(:binder) { create :binder }
-            before { binder.documents << document }
-
-            it "(TT)documentはbinderにある" do
-              binder.documents.should include(document)
-            end
-
-            pending "保留"
-          end # documentはすでにBinderにある
-        end # binderを操作する権限がuserにある
-
-        context %Q(binderを操作する権限がuserにない) do
-          before { user.binders.delete_if{|b| b.id == binder.id }}
-
-          it "(TT)binderを操作する権限がuserにない" do
-            user.binders.should_not include(binder)
-          end
-
-          pending "保留"
-        end # binderを操作する権限がuserにない
-
-        
-      end # documentはuserの所有物
-
-      context %Q(documentはuserの所有物でない) do
-        before { user.documents.delete_if{|d| d.id == document.id } }
-
-        it "(TT)document@userの所有物でない" do
-          user.documents.should_not include(document)
-        end
-
-        pending "保留"
-      end # documentはuserの所有物でない
-    end # userとしてsign_inしている時
-
-    context %Q(userとしてsign_inしていない時) do
-      before { sign_out user }
-
-      it %Q{(TT)sign_inしていない} do
-        controller.user_signed_in?.should eq(false)
-      end # TT sign_inしていない
-      pending "保留"
-    end # userとしてsign_inしていない時
-  end # add_document
+=begin
 
   describe :index do
     pending "保留"
