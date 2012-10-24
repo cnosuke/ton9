@@ -33,6 +33,14 @@ class DocumentsController < ApplicationController
     end
   end
 
+  def get_children(arg, depth)
+    return arg.map do |item|
+      unless depth == 0 && item.parent_item.present?
+        { :item => item, :children => get_children(item.child_items, depth+1) }
+      end
+    end
+  end
+
   # GET    /users/:user_id/documents/:id(.:format)
   def show
     @document = Document.where(:id => params[:id]).first
@@ -42,6 +50,8 @@ class DocumentsController < ApplicationController
       if @document.user.id == current_user.id || @document.binder.users.pluck(:user_id).include?(current_user.id)
 
         @items = @document.items.reverse
+        @items = get_children(@items, 0).compact
+
         respond_to do |format|
           format.json {  render :json => { :result => 1, :data => { :document => @document, :items => @items} }.to_json }
         end #end respond_to
