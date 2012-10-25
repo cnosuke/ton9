@@ -3,12 +3,13 @@ require 'spec_helper'
 require 'pp'
 
 describe BindersController do
+  # ------------------ 前準備 ------------------
   share_examples_for '(TT)jsonリクエストになる' do
     describe "TT" do
       let(:binder_attributes) {{:binder => attributes_for(:binder)}}
       define_dummy_controller :create
 
-      it "jsonリクエストになっている" do
+      it "(TT)jsonリクエストになっている" do
         post :create
         response.content_type.should eq("application/json")
       end
@@ -20,13 +21,15 @@ describe BindersController do
       let(:binder_attributes) {{:binder => attributes_for(:binder)}}
       define_dummy_controller :create
 
-      it "htmlリクエストになっている" do
+      it "(TT)htmlリクエストになっている" do
         post :create
         response.content_type.should eq("text/html")
       end
     end  
   end
 
+
+  # ------------------ create action ------------------
   describe :create do
     let(:binder_attributes) {{:binder => attributes_for(:binder)}}
     let(:user) { create :user }
@@ -53,9 +56,9 @@ describe BindersController do
       end
 
       it "Binderが作成される" do
-         expect {
-            post :create, binder_attributes
-           }.to change{ Binder.count }.by(1)
+       expect {
+        post :create, binder_attributes
+        }.to change{ Binder.count }.by(1)
       end
 
       it "新しいBinderは現在のユーザに権限がある" do
@@ -95,21 +98,21 @@ describe BindersController do
       it "Binderが作成されない" do
         expect {
           post :create, binder_attributes
-        }.to_not change{ Binder.count }
-      end
+          }.to_not change{ Binder.count }
+        end
 
-      describe "jsonデータ" do
-        before do
-          post :create, binder_attributes
-        end
-        subject {JSON.parse(response.body)}
+        describe "jsonデータ" do
+          before do
+            post :create, binder_attributes
+          end
+          subject {JSON.parse(response.body)}
 
-        it ":result => 0" do
-          should include("result" => 0)
-        end
-        it ":message => 'Please sign_in.'" do
-          should include("message" => 'Please sign_in.')
-        end
+          it ":result => 0" do
+            should include("result" => 0)
+          end
+          it ":message => 'Please sign_in.'" do
+            should include("message" => 'Please sign_in.')
+          end
       end # jsonデータ
     end # sign_inしていない時
 
@@ -123,7 +126,7 @@ describe BindersController do
           response.content_type.should eq("text/html")
         end
       end # Test
-        
+
       it "status = 406" do
         post :create, binder_attributes
         response.status.should eq(406)
@@ -132,7 +135,7 @@ describe BindersController do
       it "Binderが作成されない" do
         expect {
           post :create, binder_attributes
-        }.to_not change{ Binder.count }
+          }.to_not change{ Binder.count }
       end
     end # htmlリクエスト
 
@@ -152,25 +155,27 @@ describe BindersController do
         expect {
           post :create, binder_attributes
           }.to_not change{ Binder.count }
-      end
-
-      describe "jsonデータ" do
-        before do
-          post :create, binder_attributes
-        end
-        subject {JSON.parse(response.body)}
-
-        it ":result => 0" do
-          should include("result" => 0)
         end
 
-        it ":message => 'Binder save faild.'" do
-          should include("message" => 'Binder save faild.')
-        end
+        describe "jsonデータ" do
+          before do
+            post :create, binder_attributes
+          end
+          subject {JSON.parse(response.body)}
+
+          it ":result => 0" do
+            should include("result" => 0)
+          end
+
+          it ":message => 'Binder save faild.'" do
+            should include("message" => 'Binder save faild.')
+          end
       end # jsonデータ
     end # バリデーションが通らなかった時
   end # create
 
+
+  # ------------------ add_documents action ------------------
   describe :add_documents do
     let(:user) { create :user }
     let(:document) { create :document, :user_id => user.id }
@@ -207,22 +212,22 @@ describe BindersController do
       it "BinderにDocumentが追加される" do
         expect {
           post :add_documents, valid_hash
-        }.to change{ binder.documents.count }.by(1)
-      end
-
-      describe "jsonデータ" do
-        before do
-          post :add_documents, valid_hash
-        end
-        subject {JSON.parse(response.body)}
-
-        it ":result => 1" do
-          should include("result" => 1)
+          }.to change{ binder.documents.count }.by(1)
         end
 
-        it ":data => Binderデータ" do
-          should include("data" => JSON.parse(binder.to_json))
-        end
+        describe "jsonデータ" do
+          before do
+            post :add_documents, valid_hash
+          end
+          subject {JSON.parse(response.body)}
+
+          it ":result => 1" do
+            should include("result" => 1)
+          end
+
+          it ":data => Binderデータ" do
+            should include("data" => JSON.parse(binder.to_json))
+          end
       end # jsonデータ
     end # 正当である時
 
@@ -238,22 +243,22 @@ describe BindersController do
       it "BinderにDocumentが追加されない" do
         expect {
           post :add_documents, valid_hash
-        }.to_not change{ binder.documents.count }
-      end
-
-      describe "jsonデータ" do
-        before do
-          post :add_documents, valid_hash
-        end
-        subject {JSON.parse(response.body)}
-
-        it ":result => 0" do
-          should include("result" => 0)
+          }.to_not change{ binder.documents.count }
         end
 
-        it ":message => 'Please sign_in.'" do
-          should include("message" => 'Please sign_in.')
-        end
+        describe "jsonデータ" do
+          before do
+            post :add_documents, valid_hash
+          end
+          subject {JSON.parse(response.body)}
+
+          it ":result => 0" do
+            should include("result" => 0)
+          end
+
+          it ":message => 'Please sign_in.'" do
+            should include("message" => 'Please sign_in.')
+          end
       end # jsonデータ
     end
 
@@ -272,30 +277,30 @@ describe BindersController do
       it "BinderにDocumentが追加されない" do
         expect {
           post :add_documents, valid_hash
-        }.to_not change{ binder.documents.count }
-      end
-
-      describe "jsonデータ" do
-        before do
-          post :add_documents, valid_hash
-        end
-        subject {JSON.parse(response.body)}
-
-        it ":result => 0" do
-          should include("result" => 0)
+          }.to_not change{ binder.documents.count }
         end
 
-        it ":message => 'You don't have this document.'" do
-          should include("message" => "You don't have this document.")
-        end
+        describe "jsonデータ" do
+          before do
+            post :add_documents, valid_hash
+          end
+          subject {JSON.parse(response.body)}
+
+          it ":result => 0" do
+            should include("result" => 0)
+          end
+
+          it ":message => 'You don't have this document.'" do
+            should include("message" => "You don't have this document.")
+          end
       end # jsonデータ
     end
 
     context "binderを操作する権限がuserにない時" do
       before do
         Holder.where(:binder_id => binder.id)
-              .where(:user_id => user.id)
-              .delete_all
+        .where(:user_id => user.id)
+        .delete_all
         user.reload
         binder.reload
       end
@@ -310,22 +315,22 @@ describe BindersController do
       it "BinderにDocumentが追加されない" do
         expect {
           post :add_documents, valid_hash
-        }.to_not change{ binder.documents.count }
-      end
-
-      describe "jsonデータ" do
-        before do
-          post :add_documents, valid_hash
-        end
-        subject {JSON.parse(response.body)}
-
-        it ":result => 0" do
-          should include("result" => 0)
+          }.to_not change{ binder.documents.count }
         end
 
-        it ":message => 'permission denied.'" do
-          should include("message" => "Permission denied.")
-        end
+        describe "jsonデータ" do
+          before do
+            post :add_documents, valid_hash
+          end
+          subject {JSON.parse(response.body)}
+
+          it ":result => 0" do
+            should include("result" => 0)
+          end
+
+          it ":message => 'permission denied.'" do
+            should include("message" => "Permission denied.")
+          end
       end # jsonデータ
     end
 
@@ -342,7 +347,7 @@ describe BindersController do
       it "BinderにDocumentが追加されない" do
         expect {
           post :add_documents, valid_hash
-        }.to_not change{ binder.documents.count }
+          }.to_not change{ binder.documents.count }
       end
 
       describe "jsonデータ" do
@@ -360,16 +365,145 @@ describe BindersController do
         end
       end # jsonデータ
     end
+
+    context %Q(htmlリクエスト時) do
+      before { request.env["HTTP_ACCEPT"] = "text/html" }
+      describe %Q{Test} do
+        it_should_behave_like '(TT)htmlリクエストになる'
+      end # Test
+
+      it "status = 406" do
+        post :add_documents, valid_hash
+        response.status.should eq(406)
+      end
+
+      it "BinderにDocumentが追加されない" do
+        expect {
+          post :add_documents, valid_hash
+        }.to_not change{ binder.documents.count }
+      end
+
+    end # htmlリクエスト
+
   end # add_documents
 
 
+  # ------------------ index action ------------------
+  describe "index" do
+    let(:user)     { create :user }
+    let(:binder)   { create :binder }
+    let(:document) { create :document }
+    before         { sign_in user }
+    before         { request.env["HTTP_ACCEPT"] = "application/json" }
+    before         { user.binders << binder }
+    before         { binder.documents << document }
+
+    context "正当である時" do
+      describe "Test" do
+        it "(TT)sign_inしている" do
+          controller.user_signed_in?.should eq(true)
+          controller.current_user.should eq(user)
+        end
+
+        it_should_behave_like '(TT)jsonリクエストになる'
+
+        it "(TT)userにアクセス権があるbinderがひとつ以上ある" do
+          user.binders.should have(1).binders
+        end
+
+        it "(TT)binderにdocumentがある" do
+          binder.documents.should have(1).documents
+        end
+      end
+
+      describe "jsonデータ" do
+        before do
+          get :index
+        end
+        subject {JSON.parse(response.body)}
+
+        it ":result => 1" do
+          should include("result" => 1)
+        end
+
+        it ":data => bindersのデータ+documentsのデータ" do
+          json_data = JSON.parse(user.binders.map do |binder|
+            json = JSON.parse(binder.to_json)
+            json["documents"] = binder.documents.to_json
+            json
+          end.to_json)
+          json_data.each do |j|
+            j["documents"] = JSON.parse(j["documents"])
+          end
+          should include("binder" => json_data)
+        end
+      end # jsonデータ
+
+    end # 正当である時
+
+
+    context "sign_inしていない" do
+      before { sign_out user }
+      describe "Test" do
+        it "(TT)sign_inしていない" do
+          controller.user_signed_in?.should eq(false)
+        end
+      end
+
+      describe "jsonデータ" do
+        before do
+          get :index
+        end
+        subject {JSON.parse(response.body)}
+
+        it ":result => 0" do
+          should include("result" => 0)
+        end
+
+        it ":message => 'Please sign_in.'" do
+          should include("message" => 'Please sign_in.')
+        end
+      end # jsonデータ
+
+    end #sign_inしていない
+
+    context "httpリクエストになっている" do
+      before { request.env["HTTP_ACCEPT"] = "text/html" }
+      describe do
+        it_should_behave_like '(TT)htmlリクエストになる'
+      end
+
+      it "status = 406" do
+        post :add_documents, valid_hash
+        response.status.should eq(406)
+      end
+    end
+
+    context "userにアクセス権があるbinderがひとつ以上ある" do
+      before { user.binders.delete_all }
+      describe do
+        it "(TT)userにアクセス権があるbinderがひとつ以上ある" do
+          user.binders.should have(0).binders
+        end
+      end
+
+      describe "jsonデータ" do
+        before do
+          get :index
+        end
+        subject {JSON.parse(response.body)}
+
+        it ":result => 0" do
+          should include("result" => 0)
+        end
+
+        it ":message => 'Please sign_in.'" do
+          should include("message" => 'Binder save faild.')
+        end
+      end # jsonデータ
+    end
+
+  end # index
 end
 
-=begin
-
-  describe :index do
-    pending "保留"
-  end
-end
-=end
 
