@@ -13,21 +13,23 @@
       {{document.document.title}}
     </h3>
     <ul>
-      <li ng-repeat="item in document.items" ng-include="'items_renderer.html'"></li>
+      <li ng-init="open=0" ng-repeat="item in document.items" ng-include="'items_renderer.html'"></li>
     </ul>
   </div>
 </div>
 
 <script type="text/ng-template" id="items_renderer.html">
-  <span class="open">+</span>{{item.item.content}}
-  <form name="create_item" ng-submit="additem({{item.item.id}});" style="display:none;">
+  <span ng-click="open=1" ng-show="open==0">+</span>
+  <span ng-click="open=0" ng-show="open==1">-</span>
+  {{item.item.content}}
+  <form name="create_item" ng-submit="additem({{item.item.id}});" ng-show="open==1">
     <ul>
       <li class="document-bar-text"><input type="text" name="content" ng-model="item.content" required></li>
       <li class="document-bar-submit"><input type="submit" ng-disabled="create_item.$invalid" class="btn btn-primary btn-inverse" value="追加する"></li>
     </ul>
   </form>
  
-  <ul ng-show="item.children.length > 0">
+  <ul ng-show="item.children.length > 0" ng-init="open=0">
     <li ng-repeat="item in item.children" ng-include="'items_renderer.html'"></li>
   </ul>
 </script>
