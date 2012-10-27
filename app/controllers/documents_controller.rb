@@ -41,6 +41,37 @@ class DocumentsController < ApplicationController
     end
   end
 
+  def get_parent_item(result,item)
+    parent_item = result.select{ |e| e[:item].id == item.parent_item_id }.first
+    if parent_item.present?
+      return parent_item
+    end
+    children_s = result.map{ |e| e[:children] }.flatten
+    parent_item = children_s.select{ |e| e[:item].id == item.parent_item_id }.first
+    if parent_item.present?
+      return parent_item      
+    else
+      return get_parent_item(children_s,item)
+    end
+  end
+  
+  def get_item_tree(doc)
+    items = doc.items
+    result = []
+    items.each do |item|
+      if item.parent_item_id.present?
+        parent_item = get_parent_item(result,item)
+        parent_item[:children] << { :item => item, :children => [] }
+      else
+        result << {
+          :item => item,
+          :children => []
+        }
+      end
+    end
+    return result.reverse
+  end
+  
   # GET    /users/:user_id/documents/:id(.:format)
   def show
     @document = Document.where(:id => params[:id]).first
@@ -49,8 +80,7 @@ class DocumentsController < ApplicationController
       # current_user が所持者 or バインダーに追加されたuser => true
       if @document.user.id == current_user.id || @document.binder.users.pluck(:user_id).include?(current_user.id)
 
-        @items = @document.items.reverse
-        @items = get_children(@items, 0).compact
+        @items = get_item_tree(@document)
 
         respond_to do |format|
           format.json {  render :json => { :result => 1, :data => { :document => @document, :items => @items} }.to_json }
