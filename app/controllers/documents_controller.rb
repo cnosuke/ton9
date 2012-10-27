@@ -33,24 +33,25 @@ class DocumentsController < ApplicationController
     end
   end
 
-  def get_children(arg, depth)
-    return arg.map do |item|
-      unless depth == 0 && item.parent_item.present?
-        { :item => item, :children => get_children(item.child_items, depth+1) }
-      end
-    end
-  end
-
   def get_parent_item(result,item)
     parent_item = result.select{ |e| e[:item].id == item.parent_item_id }.first
+
     if parent_item.present?
+      # 一世代目の子供のケース
       return parent_item
     end
+
+    # 今よりも下の世代の子供達を探し出す
     children_s = result.map{ |e| e[:children] }.flatten
+
+    # 子供達のうち、itemの親となる子供を人肉捜索する
     parent_item = children_s.select{ |e| e[:item].id == item.parent_item_id }.first
+
     if parent_item.present?
+      # 親となる子供が見つかればそれをreturnする
       return parent_item      
     else
+      # 見つからない場合はさらに深い世代に親となりうる子供を人肉捜索にいく
       return get_parent_item(children_s,item)
     end
   end
