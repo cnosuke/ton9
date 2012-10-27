@@ -48,7 +48,6 @@ function DocumentCtrl($http, $scope, $routeParams) {
           else {
             elm.open = 0;
             addChild($scope.document.items, id, {item: data.data});
-            console.log($scope.document.items);
           }
         }
         else {
@@ -65,12 +64,8 @@ function DocumentCtrl($http, $scope, $routeParams) {
     for(var i=0; i<items.length; i++) {
       item = items[i];
       if(item.item.id == id) {
-        if(item.children == undefined) {
-          item.children = [data];
-        }
-        else {
-          item.children.push(data);
-        }
+        if(item.children == undefined) item.children = [data];
+        else item.children.push(data);
         return;
       }
       else addChild(item.children, id, data);
@@ -78,17 +73,17 @@ function DocumentCtrl($http, $scope, $routeParams) {
   }
 
   $scope.delete = function(i) {
-      $http.delete('documents/'+$scope.documents[i].id, { })
-          .success(function(data) {
-              if(data.result == 1){
-                  $scope.documents.splice(i,1);
-              }
-              else {
-                  errorHandling(data.message);
-              }
-          })
-          .error(function() {
-              errorHandling(data.message);              
-          });
+    $http.delete('documents/'+$scope.documents[i].id, { })
+      .success(function(data) {
+        if(data.result == 1){
+            $scope.documents.splice(i,1);
+        }
+        else {
+            errorHandling(data.message);
+        }
+      })
+      .error(function() {
+          errorHandling(data.message);              
+      });
   };
 }
