@@ -2,7 +2,9 @@
   <div class="view-header">
     <h4>バインダーにドキュメントを追加する</h4>
   </div>
-  <ul>
-    <li ng-repeat="document in documents"><span ng-click="add($index);">{{document.title}}</span></li>
-  </ul>
+  <div class="inner-view">
+     <ul>
+       <li ng-repeat="document in documents"><span ng-click="add($index);">{{document.title}}</span></li>
+     </ul>
+  </div>
 </div>

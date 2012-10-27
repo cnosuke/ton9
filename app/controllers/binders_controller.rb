@@ -22,8 +22,12 @@ class BindersController < ApplicationController
   #既存のドキュメントをバインダに追加するアクション
   # POST /users/:user_id/documents/:document_id/:binder_id
   def add_documents
-    @binder = Binder.where(:id => params[:binder_id] )
-    @binder = @binder.users.select { |u| u.id == current_user.id }
+    @binder = Binder.where(:id => params[:binder_id] ).first
+    unless @binder.users.select { |u| u.id == current_user.id }.size <= 0
+      respond_to do |format|
+        format.json {   render :json => {  :result => 0, :message => "Binder save failed." }.to_json }
+      end #end respond_to
+    end
     @binder.documents << Document.where(:id => params[:document_id], :user_id => current_user.id )
 
     if @binder.save
